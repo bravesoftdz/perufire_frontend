@@ -1,33 +1,345 @@
-.App {
+/* Estilos globales */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  background: #EEEEEE;
+}
+
+.principal {
+  top: 0;
+  height: 100vh;
+  position: relative;
+}
+
+.principal-wrapper {
+  width: calc(100% - 260px);
+  float: right;
+  background: #EEEEEE;
+}
+
+/* Estilos para la cabecera */
+
+header {
+  color: #555555 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.wrapper {
+  padding: 30px 15px;
+  min-height: calc(100vh - 80px);
+  margin-top: 14px;
+}
+
+.wrapper .contenedor-wrapper {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* Sidebar */
+
+.sidebar {
+  width: 260px;
+  height: 100%;
+  position: fixed;
+  color: #FFF !important;
+}
+
+.sidebar::before, .sidebar::after {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  display: block;
+  z-index: 3;
+  position: absolute;
+}
+
+.cabecera-sidebar {
+  margin: 0;
+  display: block;
+  padding: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.img-sidebar {
+  background-image: url('./componentes/img/banner.jpg');
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  position: absolute;
+  transition: all 300ms linear;
+  background-size: cover;
+  background-position: center center;
+  background-blend-mode: soft-light;
+  background-color: rgb(20,20, 20);
+}
+
+.cabecera-sidebar::after {
+  right: 15px;
+  width: calc(100% - 30px);
+  bottom: 0;
+  height: 1px;
+  content: "";
+  position: absolute;
+  background-color: rgb(161, 155, 155);
+}
+
+.logo {
+  float: left;
+  color: inherit;
+  width: 30px;
+  display: inline-block;
+  opacity: 1;
+  margin-top: 7px;
+  max-height: 30px;
   text-align: center;
+  transition: all 300ms linear;
+  margin-left: 22px;
+  margin-right: 18px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.logo .logo-img {
+  width: 30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.texto-logo {
+  display: block;
+  opacity: 1;
+  padding: 10px 0px;
+  overflow: hidden;
+  font-size: 18px;
+  transform: translate3d(0px, 0, 0);
+  transition: all 300ms linear;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 30px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
 }
 
-.App-link {
-  color: #61dafb;
+.contenedor-sidebar {
+  position: relative;
+  z-index: 4;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.padding {
+  padding: 10px 20px !important;
+}
+
+.MuiMenuItem-gutters {
+  margin-top: 10px !important;
+}
+
+.link-button {
+  position: relative;
+  color: #fff;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+.link-button .link {
+  position: relative;
+  top: 0px;
+  right: 12px;
+}
+
+.MuiMenuItem-root {
+  padding-top: 10px !important;
+}
+
+.blanco {
+  color: #fff;
+}
+
+.fuego {
+  font-size: 14px !important;
+  transition: all 300ms linear;
+  transition: all ease 1s;
+  border-radius: 3px;
+}
+
+.fuego:hover {
+  transition: all 300ms linear !important;
+  background: rgba(255, 255, 255,.1) !important;
+  border-radius: 3px;
+}
+
+.fuego:active {
+  transition: all 300ms linear !important;
+  color: #FFF !important;
+  box-shadow: 0 12px 20px -10px rgba(64, 64, 65, 0.28), 0 4px 20px 0 rgba(0, 0, 0,.12), 0 7px 8px -5px rgba(190, 190, 190, 0.2) !important;
+  background: #F84E38;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FF3552, #F84E38);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FF3552, #F84E38); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  border-radius: 3px;
+}
+
+.fuego:focus {
+  transition: all 300ms linear !important;
+  color: #FFF !important;
+  box-shadow: 0 12px 20px -10px rgba(64, 64, 65, 0.28), 0 4px 20px 0 rgba(0, 0, 0,.12), 0 7px 8px -5px rgba(190, 190, 190, 0.2) !important;
+  background: #F84E38;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #FF3552, #F84E38);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #FF3552, #F84E38); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 3px;
+}
+
+/* Estilos para la tabla */
+.responsive-table {
+  display: block;
+  width: 100%;
+  overflow-x: scroll !important;
+}
+
+.contenedor-tabla {
+  background: #fff !important;
+  padding: 10px;
+  border: 0 !important;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14) !important;
+  border-radius: 6px !important;
+}
+
+.medio {
+  width: 50%;
+  padding: 10px;
+}
+
+.contenedor-tabla .tabla {
+  margin-top: 0px;
+}
+
+.cabecera-tabla .MuiTableCell-root {
+  font-size: 1.1em !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-weight: 300;
+}
+
+.fila .celdas {
+  font-size: 13px !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-weight: 300;
+}
+
+.icono-table {
+  float: left;
+  padding: 20px;
+  color: #fff;
+  background: #5DB461;
+  border-radius: 4px;
+  position: relative;
+  z-index: 0;
+  top:-32px;
+  font-size: 70px !important;
+  margin-right: 0px;
+  box-shadow: 0 12px 20px -10px rgba(93, 180, 97, 0.28), 0 4px 20px 0 rgba(93, 180, 97,.12), 0 7px 8px -5px rgba(93, 180, 97, 0.2) !important;
+}
+
+.titulo-tabla {
+  font-size: 20px !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  font-weight: 200;
+  position: relative;
+  left: 20px;
+}
+
+/* Botones */
+
+.boton-editar {
+  background: #5DB461;
+  box-shadow: 0 12px 20px -10px rgba(93, 180, 97, 0.28), 0 4px 20px 0 rgba(93, 180, 97,.12), 0 7px 8px -5px rgba(93, 180, 97, 0.2) !important;
+  padding: 4px;
+  color: #fff !important;
+  font-size: 30px !important;
+  border-radius: 3px;
+}
+
+.boton-eliminar {
+  background: #E53371;
+  box-shadow: 0 12px 20px -10px rgba(229, 51, 113, 0.28), 0 4px 20px 0 rgba(229, 51, 113,.12), 0 7px 8px -5px rgba(229, 51, 113, 0.2) !important;
+  padding: 4px;
+  color: #fff !important;
+  font-size: 30px !important;
+  border-radius: 3px;
+}
+
+/* Formulario */
+.contenedor-formulario {
+  padding: 20px;
+}
+
+.MuiInputBase-root {
+  color: rgb(94, 94, 94) !important;
+}
+
+.nuevo-cliente {
+  color: #fff !important;
+  background: #5DB461 !important;
+}
+
+/* Swal */
+
+.swal2-popup {
+  background: #485563 !important;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #29323c, #485563) !important;  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #29323c, #485563) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"][class$="right"] {
+  background: #fff;
+}
+
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"][class$="left"] {
+  background: #fff;
+}
+
+.swal2-icon.swal2-error {
+  border-color: #fff !important;
+  background: rgb(196, 71, 114);
+}
+
+.swal2-title,.swal2-content {
+  color: #fff !important;
+}
+
+.swal2-icon.swal2-warning {
+  border-color: #fff !important;
+  color: #fff !important;
+  background: #E53371;
+}
+
+.swal2-styled.swal2-confirm {
+  border: 0;
+  border-right-color: currentcolor;
+  border-left-color: currentcolor;
+  border-radius: .25em;
+  background: initial;
+  background-color: initial;
+  background-image: initial;
+  background-color: #f7f7f7 !important;
+  color: #222 !important;
+  font-size: 1.0625em;
+  box-shadow: 0 12px 20px -10px rgba(156, 156, 156, 0.28), 0 4px 20px 0 rgba(156, 156, 156,.12), 0 7px 8px -5px rgba(156, 156, 156, 0.2) !important;
+}
+
+.swal2-styled.swal2-confirm:hover {
+  background: #fff !important;
+}
+
+.swal2-styled.swal2-confirm:focus {
+  background: #fff !important;
 }
