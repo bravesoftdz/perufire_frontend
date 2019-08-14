@@ -1,7 +1,6 @@
 import React,{Fragment,useState} from 'react'
 import clienteAxios from '../../config/axios';
 import { withRouter } from 'react-router-dom'
-import Swal from 'sweetalert2'
 
 /* Material UI */
 
@@ -35,7 +34,6 @@ const CssTextField = withStyles({
 function EditarCliente(props){
 
     const {id} = props.match.params
-    console.log(id);
 
     const[cliente,datosCliente] = useState({
         nombre: '',
@@ -60,31 +58,6 @@ function EditarCliente(props){
             ...cliente,
             [e.target.name] : e.target.value
         })
-        console.log(cliente)
-    }
-
-    const actualizarCliente = e => {
-        e.preventDefault();
-
-        // Enviando la actualizacion
-        clienteAxios.put(`clientes/editar/${cliente._id}`,cliente)
-            .then(res => {
-                if(res.data.code === 11000){
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Hubo un error',
-                        text: 'Ya hay un cliente registrado con este email'
-                    })
-                }else{
-                    Swal.fire(
-                        'Buen trabajo',
-                        'Se actualizo el cliente correctamente',
-                        'success'
-                    )
-                }
-                // Redireccionando
-                props.history.push('/');
-            });
     }
 
     const validarFormulario = () =>{
@@ -108,7 +81,7 @@ function EditarCliente(props){
                 <div>
                     <div className="contenedor-formulario">
                         <form 
-                        onSubmit={actualizarCliente}
+                        
                             >
                             <Grid container spacing={5}>
                                 <Grid item xs={6}>
@@ -167,6 +140,7 @@ function EditarCliente(props){
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
+                                <div className="centrar-boton">
                                 <Button 
                                 type="submit"
                                 variant="contained" 
@@ -175,6 +149,7 @@ function EditarCliente(props){
                                 >
                                     EDITAR CLIENTE
                                 </Button>
+                                </div>
                                 </Grid>
                             </Grid>
                         </form>

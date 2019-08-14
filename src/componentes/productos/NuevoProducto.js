@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 import TextField from '@material-ui/core/TextField'
 import {withStyles} from '@material-ui/core/styles'
 import { Paper, Grid, Button } from '@material-ui/core';
-import AddClient from '@material-ui/icons/PersonAdd';
+import NoteAdd from '@material-ui/icons/NoteAdd';
 
 const CssTextField = withStyles({
     root: {
@@ -32,52 +32,70 @@ const CssTextField = withStyles({
     },
   })(TextField);
 
-function NuevoCliente({history}){
+function NuevoProducto({history}){
 
-    const[cliente,guardarClientes] = useState({
-        nombre: '',
-        apellido: '',
-        empresa: '',
-        telefono: '',
-        email: ''
+    const[productos,gurdarProductos] = useState({
+        codigo: '',
+        producto: '',
+        resistencia: '',
+        obraProducto: ''
     });
 
-    const actualizarCliente = e => {
-        guardarClientes({
-            ...cliente,
+    const[archivo,guardarArchivo] = useState('');
+
+    const actualizarProducto = e => {
+        gurdarProductos({
+            ...productos,
             [e.target.name] : e.target.value
         })
-        console.log(cliente)
+        console.log(productos)
     }
 
-    const agregarCliente = e => {
+    const actualizarArchivo = e => {
+        guardarArchivo(e.target.files[0]);
+    }
+
+    const agregarProducto = async e => {
         e.preventDefault();
 
+        const formData = new FormData();
+        formData.append('codigo',productos.codigo);
+        formData.append('producto',productos.producto);
+        formData.append('resistencia',productos.resistencia);
+        formData.append('obraProducto',productos.obraProducto);
+        formData.append('imagen',archivo);
+
         // Enviando peticion a axios
-        clienteAxios.post('/nuevo/cliente',cliente)
-            .then(res => {
-                if(res.data.code === 11000){
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Hubo un error',
-                        text: 'Ya hay un cliente registrado con este email'
-                    })
-                }else{
-                    Swal.fire(
-                        'Buen trabajo',
-                        res.data.mensaje,
-                        'success'
-                    )
+        try {
+            const res = await clienteAxios.post('/nuevo/producto',formData,{
+                headers: {
+                    'Content-Type' : 'multipart/form-data'
                 }
-                // Redireccionando
-                history.push('/clientes');
             });
+
+            if(res.status === 200){
+                Swal.fire(
+                    'Buen trabajo',
+                    res.data.mensaje,
+                    'success'
+                )
+            }
+
+            history.push('/productos')
+
+        } catch (error) {
+            Swal.fire({
+                type: 'error',
+                title: 'Hubo un error',
+                text: 'Vuelve a intentarlo'
+            })
+        }
     }
 
     const validarFormulario = () =>{
-        const {nombre,apellido,empresa,email,telefono} = cliente;
+        const {codigo,producto,resistencia,obraProducto} = productos;
 
-        let valido = !nombre.length || !apellido.length || !empresa.length || !email.length || !telefono.length
+        let valido = !codigo.length || !producto.length || !resistencia.length || !obraProducto.length 
 
         return valido;
     }
@@ -88,66 +106,72 @@ function NuevoCliente({history}){
         <Fragment>
             <Paper className="contenedor-tabla medio">
                 <div className="icono-tabla">
-                    <AddClient className="icono-table" />
+                    <NoteAdd className="icono-table-producto" />
                     <div className="titulo-tabla">
-                        Nuevo Cliente
+                        Nuevo Producto
                     </div>
                 </div>
                 <div>
                     <div className="contenedor-formulario">
                         <form 
-                            onSubmit={agregarCliente}
+                            onSubmit={agregarProducto}
                             >
                             <Grid container spacing={5}>
                                 <Grid item xs={6}>
                                     <CssTextField 
-                                    name="nombre"
+                                    name="codigo"
                                     type="text"
                                     fullWidth={true}
-                                    onChange={actualizarCliente} 
+                                    onChange={actualizarProducto} 
                                     id="custom-css-standard-input" 
-                                    label="Nombre" 
+                                    label="Codigo" 
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <CssTextField 
                                     type="text"
-                                    name="apellido"
+                                    name="producto"
                                     fullWidth={true}
-                                    onChange={actualizarCliente} 
+                                    onChange={actualizarProducto} 
                                     id="custom-css-standard-input" 
-                                    label="Apellido" 
+                                    label="Producto" 
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <CssTextField 
                                     type="text"
-                                    name="empresa"
+                                    name="resistencia"
                                     fullWidth={true} 
-                                    onChange={actualizarCliente} 
+                                    onChange={actualizarProducto} 
                                     id="custom-css-standard-input" 
-                                    label="Empresa" 
+                                    label="Resistencia" 
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <CssTextField 
                                     type="text"
-                                    name="telefono"
+                                    name="obraProducto"
                                     fullWidth={true} 
-                                    onChange={actualizarCliente} 
+                                    onChange={actualizarProducto} 
                                     id="custom-css-standard-input" 
-                                    label="Teléfono" 
+                                    label="Obra del Producto" 
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CssTextField 
-                                    type="email"
-                                    name="email"
-                                    fullWidth={true} 
-                                    onChange={actualizarCliente} 
-                                    id="custom-css-standard-input" 
-                                    label="Email" 
-                                    />
+                                    <Button 
+                                    className="boton-img-producto"
+                                    variant="contained"
+                                    fullWidth={true}
+                                    >
+                                        Imagen
+                                        <input
+                                        onChange={actualizarArchivo} 
+                                        className="file-image"
+                                        type="file"
+                                        name="imagen"
+                                        />
+                                    </Button> 
+                                    
                                 </Grid>
                                 <Grid item xs={12}>
                                 <Button 
@@ -156,7 +180,7 @@ function NuevoCliente({history}){
                                 className="nuevo-cliente"
                                 disabled={validarFormulario()}
                                 >
-                                    AGREGAR CLIENTE
+                                    AGREGAR PRODUCTO
                                 </Button>
                                 </Grid>
                             </Grid>
@@ -168,4 +192,4 @@ function NuevoCliente({history}){
     )
 }
 
-export default withRouter(NuevoCliente);
+export default withRouter(NuevoProducto);

@@ -35,7 +35,6 @@ function Cliente({cliente}){
                 })
             }
         })
-
     }
 
     return(
@@ -48,7 +47,7 @@ function Cliente({cliente}){
                 <TableCell className="celdas">{telefono}</TableCell>
                 <TableCell className="celdas"><Link to={`/clientes/editar/${_id}`}><Brush className="boton-editar"/></Link></TableCell>
                 <TableCell className="celdas">
-                <Link to=""
+                <Link to="/clientes"
                 onClick={() => eliminarCliente(_id)}
                 >
                 <Delete className="boton-eliminar"/>

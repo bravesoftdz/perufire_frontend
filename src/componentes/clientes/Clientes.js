@@ -21,16 +21,21 @@ function Clientes() {
     // clientes = state ; guardarClientes = funcion para guardar el state
     const [clientes, guardarClientes] = useState([]);
 
-    const consultarAPI = async () => {
-        const clientesConsulta = await clienteAxios.get('/clientes');
-        // console.log(clientesConsulta);
-        guardarClientes(clientesConsulta.data)
-
-    }
-
     useEffect(() => {
+        let mounted = true;
+        const consultarAPI = async () => {
+            const clientesConsulta = await clienteAxios.get('/clientes');
+            if(mounted){
+                guardarClientes(clientesConsulta.data);
+            }            
+        }
         consultarAPI();
-    }, [clientes]);
+
+        return()=>{
+            mounted = false;
+        }
+
+    }, [clientes])
 
     return (
         <Fragment>
