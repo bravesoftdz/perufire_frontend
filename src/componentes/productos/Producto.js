@@ -45,7 +45,7 @@ function Producto({productos}){
     return(
         <TableBody>
             <TableRow className="fila">
-                <TableCell className="celdas"><img width="35px" src={`http://localhost:5000/${imagen}`} alt='imagen'/></TableCell>
+                <TableCell className="celdas"><img width="35px" src={`${process.env.REACT_APP_BACKEND_URL}/${imagen}`} alt='imagen'/></TableCell>
                 <TableCell className="celdas">{codigo}</TableCell>
                 <TableCell className="celdas">{producto}</TableCell>
                 <TableCell className="celdas">{resistencia}</TableCell>

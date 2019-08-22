@@ -30,7 +30,7 @@ function EditarProducto(props) {
     useEffect(() => {
         // consultar la api para traer el producto a editar
         const consultarAPI = async () => {
-            const productoConsulta = await clienteAxios.get(`/productos/editar/${id}`);
+            const productoConsulta = await clienteAxios.get(`/productos/${id}`);
             guardarProducto(productoConsulta.data);
         }
 
@@ -160,7 +160,7 @@ function EditarProducto(props) {
                                 <Grid item xs={12}>
                                 <div className="centrar-boton">
                                     { imagen ? (
-                                        <img src={`http://localhost:5000/${imagen}`} alt="imagen" width="300" />
+                                        <img src={`${process.env.REACT_APP_BACKEND_URL}/${imagen}`} alt="imagen" width="300" />
                                     ) : null }
                                 </div>
                                 <Button 

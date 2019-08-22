@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Brush from '@material-ui/icons/Brush';
 import Delete from '@material-ui/icons/Delete';
+import Domain from '@material-ui/icons/Domain';
+import Equalizer from '@material-ui/icons/Equalizer';
 
 function Cliente({cliente}){
     const {_id,nombre,apellido,empresa,email,telefono} = cliente;
@@ -53,6 +55,8 @@ function Cliente({cliente}){
                 <Delete className="boton-eliminar"/>
                 </Link>
                 </TableCell>
+                <TableCell className="celdas"><Link to={`/cliente/obra/nuevo/${_id}`}><Domain className="boton-obra"/></Link></TableCell>
+                <TableCell className="celdas"><Link to={`/obras/cliente/${_id}`}><Equalizer className="boton-obras"/></Link></TableCell>
             </TableRow>
         </TableBody>
     )

@@ -34,7 +34,7 @@ const CssTextField = withStyles({
 
 function NuevoProducto({history}){
 
-    const[productos,gurdarProductos] = useState({
+    const[productos,guardarProductos] = useState({
         codigo: '',
         producto: '',
         resistencia: '',
@@ -44,11 +44,10 @@ function NuevoProducto({history}){
     const[archivo,guardarArchivo] = useState('');
 
     const actualizarProducto = e => {
-        gurdarProductos({
+        guardarProductos({
             ...productos,
             [e.target.name] : e.target.value
         })
-        console.log(productos)
     }
 
     const actualizarArchivo = e => {
@@ -86,7 +85,7 @@ function NuevoProducto({history}){
         } catch (error) {
             Swal.fire({
                 type: 'error',
-                title: 'Hubo un error',
+                title: 'Ya existe un producto con el código que deseas guardar',
                 text: 'Vuelve a intentarlo'
             })
         }

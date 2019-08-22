@@ -1,6 +1,7 @@
 import React,{Fragment,useState} from 'react'
 import clienteAxios from '../../config/axios';
 import { withRouter } from 'react-router-dom'
+import Swal from 'sweetalert2';
 
 /* Material UI */
 
@@ -44,7 +45,7 @@ function EditarCliente(props){
     });
 
     const consultarAPI = async () => {
-        const clienteConsulta = await clienteAxios.get(`/clientes/editar/${id}`);
+        const clienteConsulta = await clienteAxios.get(`/clientes/${id}`);
         datosCliente(clienteConsulta.data);
     }
 
@@ -58,6 +59,32 @@ function EditarCliente(props){
             ...cliente,
             [e.target.name] : e.target.value
         })
+    }
+
+    const actualizarCliente = e => {
+        e.preventDefault();
+
+        // enviar petición por axios
+        clienteAxios.put(`/clientes/editar/${cliente._id}`, cliente) 
+            .then(res => {
+                // validar si hay errores de mongo 
+                if(res.data.code === 11000) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Hubo un error',
+                        text: 'Ese cliente ya esta registrado'
+                    })
+                } else {
+                    Swal.fire(
+                        'Correcto',
+                        'Se actualizó Correctamente',
+                        'success'
+                    )
+                }
+
+                // redireccionar
+                props.history.push('/clientes');
+            })
     }
 
     const validarFormulario = () =>{
@@ -81,7 +108,7 @@ function EditarCliente(props){
                 <div>
                     <div className="contenedor-formulario">
                         <form 
-                        
+                            onSubmit={actualizarCliente}
                             >
                             <Grid container spacing={5}>
                                 <Grid item xs={6}>

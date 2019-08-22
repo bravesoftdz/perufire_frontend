@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {withRouter} from 'react-router-dom'
 
 /* Estilos Material UI */
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +12,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
+import {PageContext} from '../../context/PageContext'
+
 const useStyles = makeStyles(theme => ({
     menuButton: {
       marginRight: theme.spacing(2),
@@ -21,7 +24,10 @@ const useStyles = makeStyles(theme => ({
   }));
   
 
-const Header = () => {
+const Header = (props) => {
+
+  const [auth,guardarAuth] = useContext(PageContext);
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -33,6 +39,25 @@ const Header = () => {
   function handleClose() {
     setAnchorEl(null);
   }
+
+  const cerrarSesion = () => {
+    // auth.auth = false, token se remueve
+    guardarAuth({
+      token: '',
+      auth: false
+    })
+
+    localStorage.setItem('token','');
+
+    // redirecionamos
+    props.history.push('/login')
+  }
+
+  const perufire = () => {
+    props.history.push('/')
+  }
+
+  if(!auth.token) return null
 
   return (
     <header>
@@ -69,8 +94,8 @@ const Header = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={cerrarSesion}>Cerrar Sesion</MenuItem>
+                <MenuItem onClick={perufire}>Perufire</MenuItem>
               </Menu>
             </div>
         </Toolbar>
@@ -79,4 +104,4 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default withRouter(Header);

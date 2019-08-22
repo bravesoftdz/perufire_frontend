@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import logotipo from '../img/logotipo.png'
 
@@ -11,19 +11,26 @@ import Typography from '@material-ui/core/Typography';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Supervised from '@material-ui/icons/SupervisorAccountRounded';
-import Business from '@material-ui/icons/Business';
 import Product from '@material-ui/icons/Style';
+import Bussines from '@material-ui/icons/Business';
+
+import {PageContext} from '../../context/PageContext'
 
 const Sidebar = () => {
+
+    const [auth,guardarAuth] = useContext(PageContext);
+
+    if(!auth.token) return null
+
     return (
         <Fragment>
             <div className="cabecera-sidebar">
-                <Link className="logo" to="/"><img className="logo-img" alt="" src={logotipo} /></Link>
+                <Link  className="logo" to="/"><img className="logo-img" alt="" src={logotipo} /></Link>
                 <Link className="texto-logo" to="/">PERUFIRE</Link>
             </div>
             <div className="contenedor-sidebar">
                     <MenuList className="padding">
-                        <Link className="link-button" to="/">
+                        <Link className="link-button" to="/dashboard">
                         <MenuItem className="fuego">
                                 <ListItemIcon>
                                     <Dashboard className="blanco" />
@@ -51,10 +58,10 @@ const Sidebar = () => {
                         <Link className="link-button" to="/obras">
                         <MenuItem className="fuego">
                                 <ListItemIcon>
-                                    <Business className="blanco" />
+                                    <Bussines className="blanco" />
                                 </ListItemIcon>
                                 <Typography className="link" variant="inherit">Obras</Typography>
-                        </MenuItem> 
+                        </MenuItem>
                         </Link>
                         <Link className="link-button" to="/usuarios">
                             <MenuItem className="fuego">

@@ -47,7 +47,6 @@ function NuevoCliente({history}){
             ...cliente,
             [e.target.name] : e.target.value
         })
-        console.log(cliente)
     }
 
     const agregarCliente = e => {
@@ -81,8 +80,6 @@ function NuevoCliente({history}){
 
         return valido;
     }
-
-    
 
     return(
         <Fragment>
