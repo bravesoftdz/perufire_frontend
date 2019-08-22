@@ -12,7 +12,6 @@ import TableHead from '@material-ui/core/TableHead';
 
 function ResumenObra({ obra }) {
 
-    console.log(obra);
 
     return (
         <Fragment>

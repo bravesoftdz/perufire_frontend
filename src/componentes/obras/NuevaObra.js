@@ -131,7 +131,7 @@ function NuevaObra(props) {
             })
         }
 
-        props.history.push(`/cliente/obras/${id}`);
+        props.history.push(`/obras/cliente/${id}`);
     }
 
     return (
